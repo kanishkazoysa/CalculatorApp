@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'buttons.dart';
 import 'package:math_expressions/math_expressions.dart';
+import 'empty_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -121,6 +122,13 @@ class _HomePageState extends State<HomePage> {
                     // +/- Button
                     else if (index == 1) {
                       return MyButton(
+                        buttontapped: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => EmptyPage()),
+                          );
+                        },
                         buttonText: buttons[index],
                         color: Colors.blue[50],
                         textColor: Colors.black,
