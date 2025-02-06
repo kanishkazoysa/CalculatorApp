@@ -124,10 +124,27 @@ class _HomePageState extends State<HomePage> {
                       return MyButton(
                         buttontapped: () {
                           Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => EmptyPage()),
-                          );
+                              context,
+                              PageRouteBuilder(
+                                pageBuilder:
+                                    (context, animation, secondaryAnimation) =>
+                                        EmptyPage(),
+                                transitionsBuilder: (context, animation,
+                                    secondaryAnimation, child) {
+                                  const begin = Offset(1.0, 0.0);
+                                  const end = Offset.zero;
+                                  const curve = Curves.easeIn;
+
+                                  var tween = Tween(begin: begin, end: end)
+                                      .chain(CurveTween(curve: curve));
+                                  var offsetAnimation = animation.drive(tween);
+                                  SlideTransition(
+                                    position: offsetAnimation,
+                                    child: child,
+                                  );
+                                  return EmptyPage();
+                                },
+                              ));
                         },
                         buttonText: buttons[index],
                         color: Colors.blue[50],
